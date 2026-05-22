@@ -2714,8 +2714,8 @@ justify-content: center;
 
         </div>
 
-        <!-- Completion message -->
-        <div style="background:linear-gradient(135deg,#f0faf9,#e8f5f3); border:1.5px solid #c8ede9; border-radius:var(--radius-sm); padding:20px 22px; text-align:center; margin-top:10px;">
+        <!-- Completion message — shown only after Generate Result is clicked -->
+        <div id="metrics-complete-msg" style="display:none; background:linear-gradient(135deg,#f0faf9,#e8f5f3); border:1.5px solid #c8ede9; border-radius:var(--radius-sm); padding:20px 22px; text-align:center; margin-top:10px;">
           <div style="font-size:1.2rem; margin-bottom:8px;">✅</div>
           <div style="font-family:'Fraunces',serif; font-size:1rem; font-weight:600; color:var(--teal-dark); margin-bottom:6px;">Body metrics are calculated.</div>
           <div style="font-size:13.5px; color:#374151;">Now let's create your personalized diet plan below.</div>
@@ -4203,6 +4203,11 @@ function generateResult() {
   inlineRes.style.display = 'block';
   const genHint = document.getElementById('generate-hint');
   if (genHint) genHint.style.display = 'none';
+
+  // Show the "Body metrics are calculated" completion message
+  const metricsMsg = document.getElementById('metrics-complete-msg');
+  if (metricsMsg) metricsMsg.style.display = 'block';
+
   setTimeout(() => inlineRes.scrollIntoView({behavior:'smooth', block:'start'}), 200);
 
   ['health-section','prefs-section','symptoms-section'].forEach((id,i)=>{
