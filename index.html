@@ -1,4 +1,4 @@
-html
+/// class="msdd-search" food preference search options (currently commented out in HTML, but logic is intact if we want to re-enable later)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -145,11 +145,76 @@ html
   .avatar-dd-sep { height: 1px; background: var(--border); margin: 4px 0; }
   .avatar-dd-icon { font-size: 1.1rem; }
 
-  /* ── WIZARD BODY (fills screen between stepper and footer) ── */
+  /* ── NAVBAR CENTER STEPS ── */
+  #topnav {
+    justify-content: space-between;
+  }
+  .nav-steps {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+ .nav-step-link {
+  background: none;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 8px 18px;
+  border-radius: 20px;
+  position: relative;
+  transition: color 0.2s, background 0.2s;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+
+  min-height: 42px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+  .nav-step-link::after {
+    content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 14px;
+  right: 14px;
+  height: 3px;
+  background: #ffffff;
+    border-radius: 2px;
+    transform: scaleX(0);
+    transition: transform 0.25s cubic-bezier(.4,0,.2,1);
+  }
+.nav-step-link:hover {
+  color: var(--teal-dark);
+  background: rgba(26,158,143,0.10);
+}
+.nav-step-link.active {
+  color: #ffffff;
+  font-weight: 800;
+  background: var(--teal);
+  box-shadow: 0 4px 14px rgba(26,158,143,0.28);
+}
+  .nav-step-link.active::after {
+    transform: scaleX(1);
+  }
+  .nav-step-link.visited {
+    color: var(--teal-dark);
+  }
+
+  /* Ensure nav-brand and nav-right don't get overlapped */
+  .nav-brand { position: relative; z-index: 1; }
+  .nav-right { position: relative; z-index: 1; }
+
+  /* ── WIZARD BODY — now starts right below navbar (no stepper strip) ── */
   #wizard-body {
     position: fixed;
-    top: 128px;
-    bottom: 72px;
+    top: 60px;
+    bottom: 0px;
     left: 0; right: 0;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -159,93 +224,7 @@ html
   #wizard-body::-webkit-scrollbar-track { background: transparent; }
   #wizard-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
-  /* ── STEPPER — fixed strip below navbar, always visible ── */
-  .wizard-stepper-fixed-wrap {
-    position: fixed;
-    top: 60px;
-    left: 0; right: 0;
-    z-index: 150;
-    background: rgba(255,255,255,0.97);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-    display: flex;
-    justify-content: center;
-  }
-  .wizard-stepper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    padding: 14px 24px 12px;
-    width: 100%;
-    max-width: 480px;
-  }
-  .ws-step {
-    display: flex;
-    
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    position: relative;
-    flex: 1;
-  }
-  .ws-circle {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    border: 2px solid var(--border);
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--muted);
-    transition: all 0.35s cubic-bezier(.4,0,.2,1);
-    position: relative;
-    z-index: 2;
-    cursor: pointer;
-  }
-  .ws-step.active .ws-circle {
-    background: var(--teal);
-    border-color: var(--teal);
-    color: #fff;
-    box-shadow: 0 0 0 5px rgba(26,158,143,0.15);
-    transform: scale(1.1);
-  }
-  .ws-step.done .ws-circle {
-    background: var(--teal);
-    border-color: var(--teal);
-    color: #fff;
-  }
-  .ws-step.done .ws-circle::after {
-    content: '✓';
-    font-size: 14px;
-  }
-  .ws-step.done .ws-num { display: none; }
-  .ws-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--muted);
-    letter-spacing: 0.3px;
-    white-space: nowrap;
-    transition: color 0.3s;
-  }
-  .ws-step.active .ws-label { color: var(--teal); }
-  .ws-step.done .ws-label { color: var(--teal-dark); }
-  /* connector line between steps */
-  .ws-connector {
-    flex: 1;
-    height: 2px;
-    background: var(--border);
-    margin-bottom: 22px;
-    transition: background 0.35s;
-    max-width: 60px;
-    position: relative;
-    z-index: 1;
-  }
-  .ws-connector.done { background: var(--teal); }
+  /* (stepper strip removed — nav links live in topnav) */
 
   /* ── WIZARD STEP PANELS ── */
   .wizard-step {
@@ -1139,42 +1118,11 @@ html
   }
 
   /* ── BOTTOM NAV BAR ── */
-  #wizard-footer {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    height: 72px;
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 28px;
-    z-index: 200;
-    box-shadow: 0 -1px 12px rgba(0,0,0,0.06);
-  }
-  .wf-step-indicator {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--muted);
-    letter-spacing: 0.3px;
-    
-  }
-  .wf-step-indicator strong { color: var(--teal); }
-  .wf-nav-btns { display: flex; gap: 10px; }
-/* 
-
-  .wf-step-indicator{
-  display:none;
+#wizard-footer {
+  display: none;
 }
-
-.wf-nav-btns{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:16px;
-} */
+  .wf-step-indicator { display: none; }
+  .wf-nav-btns { display: flex; gap: 10px; justify-content: center; }
   .btn-wf-back {
     display: flex;
     align-items: center;
@@ -1269,18 +1217,106 @@ html
   .btn-secondary { background: var(--bg); color: var(--muted); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 12px 32px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; width: 100%; margin-top: 10px; }
   .btn-secondary:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-light); }
 
-  .bmi-results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 14px; }
-  .metric-card { background: var(--bg); border-radius: var(--radius-sm); padding: 20px 16px; text-align: center; border: 1px solid var(--border); }
-  .metric-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-  .metric-value { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 600; color: var(--teal); line-height: 1; margin-bottom: 4px; display: flex; align-items: baseline; justify-content: center; gap: 5px; }
-  .metric-value .unit { font-size: 0.9rem; font-weight: 500; font-family: 'DM Sans', sans-serif; opacity: 0.75; }
-  .metric-sub { font-size: 13.5px; font-weight: 700; color: var(--muted); }
+  /* ── BMI RESULTS GRID ── */
+  .bmi-results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
+  .bmi-results-grid-2col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px; }
 
-  .bmi-bar-wrap { margin-top: 14px; }
-  .bmi-bar-track { position: relative; height: 10px; border-radius: 6px; margin-bottom: 6px; overflow: visible; background: linear-gradient(to right, #5bc8f5 0% 23%, #60d394 23% 50%, #f4a742 50% 75%, #e74c3c 75% 100%); }
-  .bmi-marker-pin { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 18px; height: 18px; border-radius: 50%; background: var(--white); border: 3px solid #1c2230; box-shadow: 0 2px 8px rgba(0,0,0,0.3); transition: left 0.8s cubic-bezier(.4,0,.2,1), border-color 0.4s; z-index: 2; }
-  .bmi-zones { display: flex; font-size: 11px; margin-top: 2px; }
-  .bmi-zone { flex: 1; text-align: center; font-weight: 600; }
+  /* ── METRIC CARD ── */
+  .metric-card {
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    padding: 22px 20px 18px;
+    text-align: center;
+    border: 1.5px solid var(--border);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: box-shadow 0.2s;
+  }
+  .metric-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.09), 0 1px 4px rgba(0,0,0,0.05); }
+
+  .metric-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  .metric-value {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 5px;
+  }
+  .metric-value .unit {
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    opacity: 0.7;
+  }
+  .metric-sub {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  /* Secondary range text below metric-sub */
+  .metric-range {
+    font-size: 11.5px;
+    font-weight: 500;
+    color: #94a3b8;
+    margin-top: 4px;
+    letter-spacing: 0.1px;
+  }
+
+  /* ── BMI SLIDER ── */
+  .bmi-bar-wrap { margin-top: 16px; width: 100%; position: relative; }
+
+  /* (bmi float label removed) */
+
+  .bmi-bar-track {
+    position: relative;
+    height: 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    margin-top: 8px; /* no float label above */
+    overflow: visible;
+    /* Proportional zones: Under 0-18.5, Normal 18.5-25, Over 25-30, Obese 30-40 */
+    /* Range 10–40 = 30 units total */
+    /* Under: 10→18.5 = 8.5/30 = 28.33% */
+    /* Normal: 18.5→25 = 6.5/30 = 21.67% → cumulative 50% */
+    /* Over: 25→30 = 5/30 = 16.67% → cumulative 66.67% */
+    /* Obese: 30→40 = 10/30 = 33.33% → 100% */
+    background: linear-gradient(to right,
+      #5bc8f5 0% 28.33%,
+      #60d394 28.33% 50%,
+      #f4a742 50% 66.67%,
+      #e74c3c 66.67% 100%);
+  }
+  .bmi-marker-pin {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 3px solid #1c2230;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.28), 0 1px 4px rgba(0,0,0,0.15);
+    transition: left 0.8s cubic-bezier(.4,0,.2,1), border-color 0.4s;
+    z-index: 2;
+  }
+  .bmi-zones { display: flex; font-size: 11px; margin-top: 4px; }
+  .bmi-zone { flex: 1; text-align: center; font-weight: 700; }
   .bmi-zone:first-child { text-align: left; }
   .bmi-zone:last-child { text-align: right; }
 
@@ -1301,8 +1337,8 @@ html
   .accordion-header:hover { background: var(--teal-light); }
   .accordion-header .chevron { transition: transform 0.3s; font-size: 12px; color: var(--muted); }
   .accordion-header.open .chevron { transform: rotate(180deg); }
-  .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; padding: 0 20px; background: var(--white); }
-  .accordion-body.open { max-height: 1200px; padding: 18px 20px; overflow: visible; }
+  .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.38s cubic-bezier(.4,0,.2,1), padding 0.25s; padding: 0 16px; background: var(--white); border-top: 0px solid transparent; }
+  .accordion-body.open { max-height: 1200px; padding: 10px 16px 16px; overflow: visible; border-top: 1px solid var(--border); }
 
   .yn-toggle { display: flex; gap: 10px; margin: 10px 0 14px; }
   .yn-btn { padding: 7px 22px; border-radius: 50px; border: 1.5px solid var(--border); background: var(--bg); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
@@ -1319,7 +1355,7 @@ html
   .health-option input[type="checkbox"] { accent-color: var(--teal); width: 15px; height: 15px; flex-shrink: 0; cursor: pointer; }
   .health-option-other-input { margin: 0 16px 12px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 8px 12px; font-family: 'DM Sans', sans-serif; font-size: 13.5px; color: var(--text); background: var(--bg); outline: none; width: calc(100% - 32px); display: none; }
   .health-option-other-input:focus { border-color: var(--teal); background: var(--white); }
-  .selected-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .selected-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;  margin-bottom:18px; }
   .tag { background: var(--teal-light); color: var(--teal-dark); border-radius: 20px; padding: 3px 10px 3px 12px; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
   .tag-x { cursor: pointer; font-weight: 700; color: var(--teal); }
 
@@ -1328,22 +1364,71 @@ html
   .health-option.hidden { display: none; }
 
   .msdd-wrap { position: relative; }
-  .msdd-trigger { border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 9px 14px; background: var(--bg); font-size: 14px; color: var(--muted); cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; transition: border-color 0.2s; }
-  .msdd-trigger:hover, .msdd-trigger.open { border-color: var(--teal); background: var(--white); }
-  .msdd-trigger.has-selection { color: var(--text); }
-  .msdd-panel { display: none; border: 1.5px solid var(--teal); border-top: none; border-radius: 0 0 var(--radius-sm) var(--radius-sm); background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.10); overflow: hidden; margin-bottom: 4px; }
-  .msdd-panel.open { display: block; }
-  .msdd-search { width: 100%; border: none; border-bottom: 1.5px solid var(--border); padding: 10px 14px; font-family: 'DM Sans', sans-serif; font-size: 13.5px; color: var(--text); outline: none; background: #f8fafb; }
-  .msdd-search:focus { background: #fff; }
-  .msdd-list { max-height: 240px; overflow-y: auto; padding: 4px 0; }
-  .msdd-option { padding: 10px 14px; font-size: 13.5px; cursor: pointer; display: flex; align-items: flex-start; gap: 10px; transition: background 0.15s; line-height: 1.4; }
-  .msdd-option:hover { background: var(--teal-light); }
+
+  /* ── FLAT DROPDOWN EXPANSION — no more boxed card ── */
+  .msdd-panel {
+    display: block;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+    margin-bottom: 0;
+  }
+
+  .msdd-side-by-side { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
+  .msdd-side-by-side .msdd-col { display: flex; flex-direction: column; }
+  .msdd-side-by-side .msdd-col .sub-label { margin-top: 0; margin-bottom: 6px; }
+  @media (max-width: 560px) { .msdd-side-by-side { grid-template-columns: 1fr; } }
+
+  /* Search bar — flat, no container */
+  .msdd-search {
+    width: 100%;
+    border: none;
+    border-bottom: 1.5px solid var(--border);
+    padding: 9px 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    color: var(--text);
+    outline: none;
+    background: transparent;
+    margin-bottom: 2px;
+    display: block;
+  }
+  .msdd-search:focus { border-bottom-color: var(--teal); background: transparent; }
+
+  /* List — flat, no scroll container box */
+  .msdd-list {
+    max-height: 260px;
+    overflow-y: auto;
+    padding: 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .msdd-list::-webkit-scrollbar { width: 4px; }
+  .msdd-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  /* Each item row — compact, full-width, tap-friendly */
+  .msdd-option {
+    padding: 9px 4px;
+    font-size: 13.5px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    transition: background 0.13s;
+    line-height: 1.4;
+    border-bottom: 1px solid #f0f2f4;
+    border-radius: 6px;
+    margin: 1px 0;
+  }
+  .msdd-option:last-child { border-bottom: none; }
+  .msdd-option:hover { background: var(--teal-light); border-radius: 6px; }
   .msdd-option input[type="checkbox"] { accent-color: var(--teal); width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; cursor: pointer; }
   .msdd-option-name { font-weight: 600; color: var(--text); }
-  .msdd-option-nutrients { font-size: 13px; font-weight: 700; color: var(--muted); margin-top: 1px; }
+  .msdd-option-nutrients { font-size: 12px; font-weight: 500; color: var(--muted); margin-top: 1px; }
   .msdd-option.hidden { display: none; }
   .msdd-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-  .msdd-empty { padding: 14px; font-size: 13px; color: var(--muted); text-align: center; }
+  .msdd-empty { padding: 14px 4px; font-size: 13px; color: var(--muted); text-align: center; }
 
   .error-msg { font-size: 13px; font-weight: 700; color: #e74c3c; margin-top: 3px; display: none; }
   .form-group.has-error input, .form-group.has-error select { border-color: #e74c3c; }
@@ -1361,7 +1446,8 @@ html
   .whatsapp-icon { color: #25D366; font-weight: 700; }
 
   .section-divider { height: 1px; background: var(--border); margin: 24px 0; }
-  .sub-label { font-size: 14px; font-weight: 700; color: var(--muted); margin-bottom: 6px; margin-top: 14px; }
+  .sub-label { font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 4px; margin-top: 10px; }
+  .accordion-body .sub-label:first-child { margin-top: 4px; }
   .sub-chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
   .sub-chip { padding: 6px 14px; border-radius: 50px; border: 1.5px solid var(--border); background: var(--bg); font-size: 12.5px; font-weight: 500; color: var(--text); cursor: pointer; transition: all 0.2s; user-select: none; }
   .sub-chip.active { background: var(--teal); border-color: var(--teal); color: #fff; }
@@ -1535,8 +1621,8 @@ html
   @media (max-width: 820px) {
     #topnav { padding: 0 16px; }
     #wizard-footer { padding: 0 16px; }
-    .wizard-stepper { padding: 10px 16px 8px; }
-    .ws-connector { max-width: 32px; }
+    .nav-steps { gap: 2px; }
+    .nav-step-link { font-size: 13px; padding: 5px 11px; }
     .welcome-cards { grid-template-columns: repeat(2,1fr); gap: 10px; }
     .edu-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
     .assessment-area { padding: 0 10px 20px; }
@@ -1544,15 +1630,316 @@ html
     .form-grid { grid-template-columns: 1fr; }
     .contact-row { grid-template-columns: 1fr; }
     .bmi-results-grid { grid-template-columns: 1fr; }
+    .bmi-results-grid-2col { grid-template-columns: 1fr; }
     .submit-row { flex-direction: column; }
     .grb-grid { grid-template-columns: 1fr !important; }
     .goal-timeline-row { grid-template-columns: 1fr !important; }
   }
+  @media (max-width: 560px) {
+    .nav-steps {
+      position: static;
+      transform: none;
+      order: 3;
+      width: 100%;
+    }
+    #topnav {
+      height: auto;
+      flex-wrap: wrap;
+      padding: 10px 16px 0;
+      gap: 0;
+    }
+    .nav-brand { flex: 1; }
+    .nav-steps {
+      order: 3;
+      display: flex;
+      justify-content: center;
+      padding: 6px 0 8px;
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+      width: 100%;
+    }
+    .nav-step-link { font-size: 12.5px; padding: 4px 10px; }
+    #wizard-body { top: 104px; }
+    #wstep-2 { height: calc(100vh - 104px - 72px); }
+  }
   @media (max-width: 480px) {
     .welcome-cards { grid-template-columns: repeat(3,1fr); }
     .edu-grid { grid-template-columns: 1fr; }
-    .ws-label { font-size: 10px; }
   }
+
+  /* ══════════════════════════════════════════
+     WEEKLY EATING RULES
+  ══════════════════════════════════════════ */
+  .wer-section {
+    margin-top: 28px;
+    padding: 0;
+  }
+  .wer-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .wer-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.1px;
+  }
+  .wer-badge {
+    display: inline-flex;
+    align-items: center;
+    background: var(--teal-light);
+    color: var(--teal-dark);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    padding: 2px 9px;
+    border-radius: 20px;
+  }
+  .wer-subtitle {
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  /* Day chips row */
+  .wer-days-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .wer-day-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 9px 14px 8px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.22s cubic-bezier(.4,0,.2,1);
+    user-select: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    position: relative;
+  }
+  .wer-day-chip:hover {
+    border-color: var(--teal);
+    color: var(--teal);
+    background: var(--teal-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26,158,143,0.14);
+  }
+  .wer-day-chip.active {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(26,158,143,0.28);
+    transform: translateY(-2px);
+  }
+  .wer-day-chip .wer-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: transparent;
+    transition: background 0.2s;
+    margin-top: 1px;
+  }
+  .wer-day-chip.has-rules .wer-dot {
+    background: var(--teal);
+  }
+  .wer-day-chip.active .wer-dot {
+    background: rgba(255,255,255,0.7);
+  }
+
+  /* Rules panel */
+  .wer-panel {
+    margin-top: 12px;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px 20px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+    animation: werPanelIn 0.22s cubic-bezier(.4,0,.2,1) both;
+    overflow: hidden;
+  }
+  @keyframes werPanelIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .wer-panel-title {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .wer-panel-title .wer-day-label {
+    color: var(--teal-dark);
+  }
+
+  /* Rule chips */
+  .wer-rules-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+  }
+  .wer-rule-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 15px;
+    border-radius: 50px;
+    border: 1.5px solid var(--border);
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.18s cubic-bezier(.4,0,.2,1);
+    user-select: none;
+  }
+  .wer-rule-chip:hover {
+    border-color: var(--teal);
+    color: var(--teal);
+    background: var(--teal-light);
+  }
+  .wer-rule-chip.active {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(26,158,143,0.22);
+  }
+  .wer-rule-chip .wer-check {
+    font-size: 11px;
+    opacity: 0;
+    transition: opacity 0.15s;
+    width: 0;
+    overflow: hidden;
+    transition: all 0.18s;
+  }
+  .wer-rule-chip.active .wer-check {
+    opacity: 1;
+    width: 12px;
+  }
+
+  /* Custom input inside panel */
+  .wer-custom-input-wrap {
+    margin-top: 12px;
+    display: none;
+    animation: werPanelIn 0.18s ease both;
+  }
+  .wer-custom-input-wrap.show { display: block; }
+  .wer-custom-input {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 9px 13px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--bg);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .wer-custom-input:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(26,158,143,0.12);
+    background: var(--white);
+  }
+  .wer-custom-input::placeholder { color: #b0b7c3; }
+
+  /* Repeat toggle */
+  .wer-repeat-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 16px 18px;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .wer-repeat-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .wer-repeat-q {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .wer-repeat-hint {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .wer-repeat-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .wer-toggle-btn {
+    padding: 7px 20px;
+    border-radius: 50px;
+    border: 1.5px solid var(--border);
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.22s cubic-bezier(.4,0,.2,1),
+                border-color 0.22s cubic-bezier(.4,0,.2,1),
+                color 0.22s cubic-bezier(.4,0,.2,1),
+                box-shadow 0.22s cubic-bezier(.4,0,.2,1),
+                transform 0.15s cubic-bezier(.4,0,.2,1);
+    color: var(--muted);
+  }
+  .wer-toggle-btn:hover:not(.active) {
+    border-color: var(--teal);
+    color: var(--teal);
+    background: var(--teal-light);
+  }
+  .wer-toggle-btn.yes.active {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(26,158,143,0.25);
+  }
+  .wer-toggle-btn.no.active {
+    background: #374151;
+    border-color: #374151;
+    color: #fff;
+  }
+  .wer-no-msg {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    font-size: 12.5px;
+    color: var(--muted);
+    font-weight: 500;
+    padding: 8px 12px;
+    background: #f8f9fb;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .wer-no-msg.show { display: flex; }
 </style>
 
 <!-- Inline auth state script (unchanged) -->
@@ -1723,12 +2110,19 @@ html
 </div>
 
 <!-- ══════════════════════════════════════════
-     NAVBAR — logo left, avatar right ONLY
+     NAVBAR — logo | center nav | sign in
 ══════════════════════════════════════════ -->
 <nav id="topnav">
   <a class="nav-brand" href="index.html">Nutri<span>Plan</span></a>
+
+  <!-- CENTER: step nav links -->
+  <div class="nav-steps" id="nav-steps">
+    <button class="nav-step-link active" id="nav-link-1" onclick="wizardGo(1,'forward')">Welcome</button>
+    <button class="nav-step-link" id="nav-link-2" onclick="wizardGo(2,'forward')">Education</button>
+    <button class="nav-step-link" id="nav-link-3" onclick="wizardGo(3,'forward')">Assessment</button>
+  </div>
+
   <div class="nav-right">
-    <!-- Unread message dot handled by JS -->
     <a href="profile.html" class="nav-signin-btn" id="nav-signin-btn">Sign In</a>
     <div style="position:relative; flex-shrink:0;" id="nav-profile-wrap">
       <button class="nav-profile-btn" id="nav-profile-btn" onclick="toggleAvatarDropdown()" title="My Account"></button>
@@ -1743,32 +2137,7 @@ html
   </div>
 </nav>
 
-<!-- ══════════════════════════════════════════
-     STEPPER — fixed below navbar, always visible
-══════════════════════════════════════════ -->
-<div class="wizard-stepper-fixed-wrap">
-  <div class="wizard-stepper" id="wizard-stepper">
-    <div class="ws-step active" id="ws-step-1">
-      <div class="ws-circle"><span class="ws-num">1</span></div>
-      <div class="ws-label">Welcome</div>
-    </div>
-    <div class="ws-connector" id="ws-conn-1"></div>
-    <div class="ws-step" id="ws-step-2">
-      <div class="ws-circle"><span class="ws-num">2</span></div>
-      <div class="ws-label">Education</div>
-    </div>
-    <div class="ws-connector" id="ws-conn-2"></div>
-    <div class="ws-step" id="ws-step-3">
-      <div class="ws-circle"><span class="ws-num">3</span></div>
-      <div class="ws-label">Assessment</div>
-    </div>
-    <div class="ws-connector" id="ws-conn-3"></div>
-    <div class="ws-step" id="ws-step-4">
-      <div class="ws-circle"><span class="ws-num">4</span></div>
-      <div class="ws-label">Complete</div>
-    </div>
-  </div>
-</div>
+
 
 <!-- ══════════════════════════════════════════
      WIZARD BODY
@@ -2156,19 +2525,21 @@ html
              SECTION 1: BMI Results
         ════════════════════════════════════════════ -->
         <div style="margin-bottom:28px;">
-          <div style="font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--teal); margin-bottom:10px;">Section 1 — BMI Results</div>
-          <div style="font-family:'Fraunces',serif; font-size:1.1rem; font-weight:600; margin-bottom:14px;">BMI Results</div>
+          <div style="font-size:10px; font-weight:800; letter-spacing:1.1px; text-transform:uppercase; color:var(--teal); margin-bottom:8px;">Section 1 — BMI Results</div>
+          <div style="font-family:'Fraunces',serif; font-size:1.1rem; font-weight:600; color:var(--text); margin-bottom:16px;">Body Composition</div>
 
-          <!-- Row 1: BMI | Present Weight | Body Fat % -->
-          <div class="bmi-results-grid" style="margin-bottom:14px;">
+          <!-- Row 1: BMI | Present Weight | Ideal Weight -->
+          <div class="bmi-results-grid" style="margin-bottom:16px;">
 
-            <!-- Card 1: BMI with bar -->
-            <div class="metric-card">
+            <!-- Card 1: BMI with slider -->
+            <div class="metric-card" style="border-left:3px solid var(--teal);">
               <div class="metric-label">Body Mass Index</div>
-              <div class="metric-value" id="r-bmi" style="font-size:2rem;">—</div>
+              <div class="metric-value" id="r-bmi" style="font-size:2.2rem;">—</div>
               <div class="metric-sub" id="r-bmi-cat">—</div>
               <div class="bmi-bar-wrap">
-                <div class="bmi-bar-track"><div class="bmi-marker-pin" id="bmi-marker" style="left:50%"></div></div>
+                <div class="bmi-bar-track">
+                  <div class="bmi-marker-pin" id="bmi-marker" style="left:50%"></div>
+                </div>
                 <div class="bmi-zones">
                   <span class="bmi-zone" style="color:#5bc8f5;">Under</span>
                   <span class="bmi-zone" style="color:#60d394;">Normal</span>
@@ -2181,48 +2552,37 @@ html
             <!-- Card 2: Present Weight -->
             <div class="metric-card">
               <div class="metric-label">Present Weight</div>
-              <div class="metric-value" id="r-present-wt" style="font-size:1.8rem; color:var(--teal);">—</div>
+              <div class="metric-value" id="r-present-wt" style="font-size:2rem; color:var(--teal);">—</div>
               <div class="metric-sub">Current body weight</div>
             </div>
 
-            <!-- Card 3: Body Fat % -->
+            <!-- Card 3: Ideal Weight (with range) -->
             <div class="metric-card">
-              <div class="metric-label">Body Fat %</div>
-              <div class="metric-value" id="r-fat" style="font-size:1.8rem;">—</div>
-              <div class="metric-sub" id="r-fat-cat">Enter waist &amp; neck to calculate</div>
+              <div class="metric-label">Ideal Weight</div>
+              <div class="metric-value" id="r-target-wt" style="font-size:2rem; color:#60d394;">—</div>
+              <div class="metric-sub">Goal to reach</div>
+              <div class="metric-range" id="r-ideal-range-text">—</div>
+              <!-- Hidden element kept for JS compatibility -->
+              <div id="r-ideal-range-val" style="display:none;"></div>
             </div>
 
           </div>
 
-          <!-- Row 2: Ideal Weight Range | Ideal Weight | To Lose/Gain -->
-          <div class="bmi-results-grid" style="margin-bottom:14px;">
+          <!-- Row 2: To Lose/Gain | Body Fat % -->
+          <div class="bmi-results-grid-2col">
 
-            <!-- Card 4: Ideal Weight Range -->
-            <div class="metric-card">
-              <div class="metric-label">Ideal Weight Range</div>
-              <!-- <div class="metric-value" id="r-ideal-range-val" style="font-size:1.3rem; color:#60d394; flex-direction:column; gap:2px;">—</div> -->
-              <div 
-              class="metric-value" 
-              id="r-ideal-range-val" 
-              style="font-size:1.3rem; color:#60d394; display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap;"
-            >
-              —
-            </div>
-              <div class="metric-sub">Healthy BMI 18.5 – 24.9</div>
-            </div>
-
-            <!-- Card 5: Ideal Weight -->
-            <div class="metric-card">
-              <div class="metric-label">Ideal Weight</div>
-              <div class="metric-value" id="r-target-wt" style="font-size:1.8rem;">—</div>
-              <div class="metric-sub">Goal to reach</div>
-            </div>
-
-            <!-- Card 6: Weight to Lose/Gain -->
+            <!-- Card 4: Weight to Lose/Gain -->
             <div class="metric-card">
               <div class="metric-label" id="r-wl-label">Weight Change</div>
-              <div class="metric-value" id="r-wl-total" style="font-size:1.8rem;">—</div>
+              <div class="metric-value" id="r-wl-total" style="font-size:2rem;">—</div>
               <div class="metric-sub" id="r-wl-direction">—</div>
+            </div>
+
+            <!-- Card 5: Body Fat % -->
+            <div class="metric-card">
+              <div class="metric-label">Body Fat %</div>
+              <div class="metric-value" id="r-fat" style="font-size:2rem;">—</div>
+              <div class="metric-sub" id="r-fat-cat">Enter waist &amp; neck to calculate</div>
             </div>
 
           </div>
@@ -2231,32 +2591,7 @@ html
         <!-- ═══════════════════════════════════════════
              SECTION 2: Your Goal + Calories (merged)
         ════════════════════════════════════════════ -->
-        <div style="margin-bottom:28px; border-top:1px solid var(--border); padding-top:22px;">
-          <div style="font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--teal); margin-bottom:10px;">Section 2 — Your Goal &amp; Calories</div>
-          <div style="font-family:'Fraunces',serif; font-size:1.1rem; font-weight:600; margin-bottom:14px;">Present Weight  Calories</div>
-
-        
-
-            <!-- ── Row 3: BMR + Maintenance (before select rate) ── -->
-            <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-bottom:20px;">
-              <div class="metric-card" style="border-left:4px solid #5bc8f5;">
-                <div class="metric-label">BMR — Basal Metabolic Rate</div>
-                <div class="metric-value" id="r-bmr" style="font-size:1.8rem; color:#5bc8f5;">—</div>
-                <div class="metric-sub" style="line-height:1.5;">
-                  <span id="r-bmr-activity-desc" style="font-size:12px; font-weight:600; color:var(--teal-dark); display:block; margin-bottom:3px;"></span>
-                  kcal/day at <strong>complete rest</strong><br/>
-                  <span style="font-size:10.5px; color:var(--muted);">The minimum calories your body burns just to keep you alive — breathing, heartbeat, organ function — with zero activity.</span>
-                </div>
-              </div>
-              <div class="metric-card" style="border-left:4px solid var(--teal);">
-                <div class="metric-label">Maintenance Calories</div>
-                <div class="metric-value" id="r-maintenance" style="font-size:1.8rem;">—</div>
-                <div class="metric-sub">
-                  <span id="r-maintenance-desc" style="font-size:12px; font-weight:600; color:var(--text); display:block; margin-bottom:2px;"></span>
-                  kcal/day · BMR × your activity factor
-                </div>
-              </div>
-            </div>
+    
 
              <div style="font-family:'Fraunces',serif; font-size:1.1rem; font-weight:600; margin-bottom:14px;">Your Goal</div>
               <!-- Maintain -->
@@ -2282,16 +2617,19 @@ html
                 <div class="grb-title" style="font-weight:700; font-size:14px; color:var(--text); margin-bottom:4px;"></div>
                 <div class="grb-rate" style="font-size:12px; color:var(--muted); margin-bottom:4px;">0.25 kg/week</div>
                 <div class="grb-kcal" style="font-size:11px; color:var(--teal); font-weight:600;">±250 kcal</div>
+                <div class="grb-chip" style="margin-top:8px; display:inline-block; padding:3px 10px; border-radius:20px; font-size:10.5px; font-weight:700; letter-spacing:0.3px; background:#e6f7f5; color:#14786c;">Gentle</div>
               </div>
               <div class="goal-rate-btn active-goal" data-rate="0.5" onclick="selectGoalRate(this)" style="padding:18px 12px; border-radius:var(--radius-sm); border:2px solid var(--teal); background:var(--teal); text-align:center;">
                 <div class="grb-title" style="font-weight:700; font-size:14px; color:#fff; margin-bottom:4px;"></div>
                 <div class="grb-rate" style="font-size:12px; color:rgba(255,255,255,0.85); margin-bottom:4px;">0.5 kg/week</div>
                 <div class="grb-kcal" style="font-size:11px; color:rgba(23, 146, 162, 0.9); font-weight:600;">±500 kcal</div>
+                <div class="grb-chip" style="margin-top:8px; display:inline-block; padding:3px 10px; border-radius:20px; font-size:10.5px; font-weight:700; letter-spacing:0.3px; background:rgba(255,255,255,0.25); color:#fff;">⭐ Recommended</div>
               </div>
               <div class="goal-rate-btn" data-rate="1" onclick="selectGoalRate(this)" style="padding:18px 12px; border-radius:var(--radius-sm); border:2px solid var(--border); background:var(--bg); text-align:center;">
                 <div class="grb-title" style="font-weight:700; font-size:14px; color:var(--text); margin-bottom:4px;"></div>
                 <div class="grb-rate" style="font-size:12px; color:var(--muted); margin-bottom:4px;">1 kg/week</div>
                 <div class="grb-kcal" style="font-size:11px; color:#f4a742; font-weight:600;">±1000 kcal</div>
+                <div class="grb-chip" style="margin-top:8px; display:inline-block; padding:3px 10px; border-radius:20px; font-size:10.5px; font-weight:700; letter-spacing:0.3px; background:#fef9ec; color:#92400e;">Aggressive</div>
               </div>
             </div>
             <div id="extreme-warning" style="display:none; margin-bottom:16px; background:#fef9ec; border:1.5px solid #fde68a; border-radius:var(--radius-sm); padding:10px 14px; font-size:13px; color:#92400e;">
@@ -2354,8 +2692,9 @@ html
             <div style="padding:14px 16px; background:#f0faf9; border-bottom:1.5px solid #c8ede9; display:flex; align-items:center; gap:10px;">
               <span style="font-size:1.1rem;">🎯</span>
               <div>
-                <div style="font-size:12px; font-weight:700; color:var(--teal-dark); text-transform:uppercase; letter-spacing:0.5px;">After-Goal Maintenance Calories</div>
-                <div style="font-size:11.5px; color:var(--muted); margin-top:2px;">Calories needed to maintain your <strong id="after-goal-ideal-wt">ideal weight</strong> at each activity level — <span style="color:var(--teal); font-weight:700;">teal row</span> is your present activity level</div>
+                <div style="font-size:13px; font-weight:700; color:var(--teal-dark); text-transform:uppercase; letter-spacing:0.5px;">After-Goal Maintenance Calories</div>
+                <div style="font-size:12.5px; color:var(--text); font-weight:600; margin-top:4px;">Calories needed to maintain your <strong id="after-goal-ideal-wt">ideal weight</strong> at each activity level</div>
+                <div style="font-size:11.5px; color:#94a3b8; font-weight:500; margin-top:3px;"><span style="display:inline-block; width:12px; height:12px; background:var(--teal); border-radius:2px; vertical-align:middle; margin-right:4px;"></span>Teal row = your present activity level</div>
               </div>
             </div>
             <div style="overflow-x:auto;">
@@ -2387,7 +2726,7 @@ html
     <!-- STEP 2 -->
     <div class="card hidden-section wide-card" id="health-section">
       <div class="step-label">Step 2</div>
-      <div class="section-title">Your Health</div>
+      <div class="section-title">Your Current Health</div>
       <div class="form-group">
         <label>Health Conditions</label>
         <div class="health-conditions-wrap">
@@ -2441,12 +2780,13 @@ html
       </div>
       <div class="form-group" style="margin-top:18px;">
         <label>Type of Meal</label>
-        <div class="chip-group" id="meal-types"><div class="chip" onclick="toggleChip(this)">Breakfast</div><div class="chip" onclick="toggleChip(this)">Mid Morning</div><div class="chip" onclick="toggleChip(this)">Lunch</div><div class="chip" onclick="toggleChip(this)">Evening Snacks</div><div class="chip" onclick="toggleChip(this)">Dinner</div></div>
+        <div class="chip-group" id="meal-types"><div class="chip" onclick="toggleChip(this)">Breakfast</div><div class="chip" onclick="toggleChip(this)">Mid Morning</div><div class="chip" onclick="toggleChip(this)">Lunch</div><div class="chip" onclick="toggleChip(this)">Evening Snacks</div><div class="chip" onclick="toggleChip(this)">Dinner</div><div class="chip" onclick="toggleChip(this)">Before Bed</div></div>
         <div class="time-chip-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Select all meals you have in a typical day</div>
       </div>
       <div class="form-group" style="margin-top:18px;">
         <label>Eating Time Window</label>
         <div class="time-chip-group" id="time-window-chips">
+             <div class="time-chip" onclick="selectTimeChip(this)" data-value="7:00 AM to 7:00 PM">7 AM – 7 PM <span class="tc-hrs">(12 hrs)</span></div>
           <div class="time-chip" onclick="selectTimeChip(this)" data-value="8:00 AM to 7:00 PM">8 AM – 7 PM <span class="tc-hrs">(11 hrs)</span></div>
           <div class="time-chip" onclick="selectTimeChip(this)" data-value="8:00 AM to 8:00 PM">8 AM – 8 PM <span class="tc-hrs">(12 hrs)</span></div>
           <div class="time-chip" onclick="selectTimeChip(this)" data-value="9:00 AM to 7:00 PM">9 AM – 7 PM <span class="tc-hrs">(10 hrs)</span></div>
@@ -2456,27 +2796,57 @@ html
         <input type="hidden" id="eat-window-val" value=""/>
       </div>
 
-      <div class="form-group" style="margin-top:18px;">
-        <label>Fasting Days (if any)</label>
-        <div class="chip-group" id="meal-types"><div class="chip" onclick="toggleChip(this)">Monday</div><div class="chip" onclick="toggleChip(this)">Tuesday</div><div class="chip" onclick="toggleChip(this)">Wednesday</div><div class="chip" onclick="toggleChip(this)">Thursday</div><div class="chip" onclick="toggleChip(this)">Friday</div><div class="chip" onclick="toggleChip(this)">Saturday</div><div class="chip" onclick="toggleChip(this)">Sunday</div></div>
-        <div class="time-chip-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Select the days that you fast</div>
-      </div>
       
+      <!-- ══ WEEKLY EATING RULES ══ -->
+      <div class="wer-section form-group" style="margin-top:28px;">
+        <div class="wer-header">
+          <span class="wer-title">Weekly Eating Rules</span>
+        </div>
+        <div class="wer-subtitle">Tap a day to set special eating rules for it </div>
 
-      
-      <div class="form-group" style="margin-top:16px;">
-        <label>When Do You Eat on Fasting Days?</label>
-        <input 
-          type="text" 
-          id="inp-fasting-time" 
-          placeholder="e.g. Only after sunset, One meal at noon, Fruits in evening..." 
-          autocomplete="off"
-        />
+        <!-- Day chips -->
+        <div class="wer-days-row" id="wer-days-row">
+          <div class="wer-day-chip" data-day="Mon" onclick="werSelectDay('Mon', this)">Mon<span class="wer-dot"></span></div>
+          <div class="wer-day-chip" data-day="Tue" onclick="werSelectDay('Tue', this)">Tue<span class="wer-dot"></span></div>
+          <div class="wer-day-chip" data-day="Wed" onclick="werSelectDay('Wed', this)">Wed<span class="wer-dot"></span></div>
+          <div class="wer-day-chip" data-day="Thu" onclick="werSelectDay('Thu', this)">Thu<span class="wer-dot"></span></div>
+          <div class="wer-day-chip" data-day="Fri" onclick="werSelectDay('Fri', this)">Fri<span class="wer-dot"></span></div>
+          <div class="wer-day-chip" data-day="Sat" onclick="werSelectDay('Sat', this)">Sat<span class="wer-dot"></span></div>
+          <div class="wer-day-chip" data-day="Sun" onclick="werSelectDay('Sun', this)">Sun<span class="wer-dot"></span></div>
+        </div>
+
+        <!-- Rule panel (shown when a day is selected) -->
+        <div class="wer-panel" id="wer-panel" style="display:none;">
+          <div class="wer-panel-title">Rules for <span class="wer-day-label" id="wer-panel-day-label">—</span></div>
+          <div class="wer-rules-row" id="wer-rules-row">
+            <div class="wer-rule-chip" data-rule="Only Veg" onclick="werToggleRule(this)"><span class="wer-check">✓</span>Only Veg</div>
+            <div class="wer-rule-chip" data-rule="Fasting Until Evening" onclick="werToggleRule(this)"><span class="wer-check">✓</span>Fasting Until Evening</div>
+            <div class="wer-rule-chip" data-rule="Light Dinner (Tiffins)" onclick="werToggleRule(this)"><span class="wer-check">✓</span>Light Dinner (Tiffins)</div>
+            <div class="wer-rule-chip" data-rule="Entire Day Fasting" onclick="werToggleRule(this)"><span class="wer-check">✓</span>Entire Day Fasting</div>
+            <div class="wer-rule-chip" data-rule="Custom" onclick="werToggleRule(this)"><span class="wer-check">✓</span>Custom</div>
+          </div>
+          <div class="wer-custom-input-wrap" id="wer-custom-wrap">
+            <input class="wer-custom-input" id="wer-custom-input" type="text" placeholder="e.g. Only fruits before noon, no rice…" autocomplete="off" oninput="werSaveCustom(this.value)"/>
+          </div>
+        </div>
+
+        <!-- Repeat toggle -->
+        <div class="wer-repeat-row" id="wer-repeat-row" style="display:none;">
+          <div class="wer-repeat-left">
+            <span class="wer-repeat-q">Does this repeat every week?</span>
+            <span class="wer-repeat-hint">Set as a recurring weekly pattern</span>
+          </div>
+          <div class="wer-repeat-right">
+            <button class="wer-toggle-btn yes" id="wer-yes-btn" onclick="werRepeatToggle('yes')">Yes</button>
+            <button class="wer-toggle-btn no" id="wer-no-btn" onclick="werRepeatToggle('no')">No</button>
+          </div>
+        </div>
+        <div class="wer-no-msg" id="wer-no-msg">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          You can modify these preferences later anytime.
+        </div>
       </div>
-       <div class="time-chip-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Mention the days you fast and your usual eating pattern on those days to help us plan meals better</div>
-
-
-
+      <!-- ══ END WEEKLY EATING RULES ══ -->
 
 
 
@@ -2502,11 +2872,10 @@ html
           <p style="font-size:13px; color:var(--muted); margin-bottom:8px;">Do you drink morning drinks?</p>
           <div class="yn-toggle"><button class="yn-btn yes active" onclick="ynToggle(this,'yes')">Yes</button><button class="yn-btn no" onclick="ynToggle(this,'no')">No</button></div>
           <div class="drink-options" id="drink-opts">
-            <div class="sub-label">Choose your drinks from the dropdown</div>
+            <div class="sub-label">Choose your drinks</div>
             <div class="msdd-wrap" id="msdd-drinks">
-              <div class="msdd-trigger" onclick="toggleMsdd('msdd-drinks')"><span id="msdd-drinks-label">Select drinks…</span><span>▾</span></div>
               <div class="msdd-panel" id="msdd-drinks-panel">
-                <input type="text" class="msdd-search" placeholder="🔍 Search drinks…" oninput="filterMsdd('msdd-drinks',this.value)" autocomplete="off"/>
+                <!-- <input type="text" class="msdd-search" placeholder="🔍 Search drinks…" oninput="filterMsdd('msdd-drinks',this.value)" autocomplete="off"/> -->
                 <div class="msdd-list" id="msdd-drinks-list">
                   <label class="msdd-option"><input type="checkbox" value="Warm Water" onchange="msddChange('msdd-drinks')"/><div><div class="msdd-option-name">Warm Water</div></div></label>
                   <label class="msdd-option"><input type="checkbox" value="Lemon & Honey" onchange="msddChange('msdd-drinks')"/><div><div class="msdd-option-name">Lemon &amp; Honey</div></div></label>
@@ -2528,37 +2897,40 @@ html
       <div class="accordion-item" id="nuts-section">
         <div class="accordion-header" onclick="toggleAccordion(this)"><span>Nuts &amp; Seeds</span><span class="chevron">▾</span></div>
         <div class="accordion-body">
-        <div class="sub-label">Choose Nuts & Seeds from the dropdowns</div>
-          <div class="sub-label">Nuts</div>
-          <div class="msdd-wrap" id="msdd-nuts">
-            <div class="msdd-trigger" onclick="toggleMsdd('msdd-nuts')"><span id="msdd-nuts-label">Select nuts…</span><span>▾</span></div>
-            <div class="msdd-panel" id="msdd-nuts-panel">
-              <input type="text" class="msdd-search" placeholder="🔍 Search nuts…" oninput="filterMsdd('msdd-nuts',this.value)" autocomplete="off"/>
-              <div class="msdd-list" id="msdd-nuts-list">
-                <label class="msdd-option"><input type="checkbox" value="Almonds" onchange="msddChange('msdd-nuts')"/><div><div class="msdd-option-name">Almonds</div></div></label>
-                <label class="msdd-option"><input type="checkbox" value="Walnuts" onchange="msddChange('msdd-nuts')"/><div><div class="msdd-option-name">Walnuts</div></div></label>
-                <label class="msdd-option"><input type="checkbox" value="Cashews" onchange="msddChange('msdd-nuts')"/><div><div class="msdd-option-name">Cashews</div></div></label>
-                <label class="msdd-option"><input type="checkbox" value="Pistachios" onchange="msddChange('msdd-nuts')"/><div><div class="msdd-option-name">Pistachios</div></div></label>
-                <label class="msdd-option"><input type="checkbox" value="Peanuts" onchange="msddChange('msdd-nuts')"/><div><div class="msdd-option-name">Peanuts</div></div></label>
+          <div class="msdd-side-by-side">
+            <div class="msdd-col">
+              <div class="sub-label">Nuts</div>
+              <div class="msdd-wrap" id="msdd-nuts">
+                <div class="msdd-panel" id="msdd-nuts-panel">
+                  <!-- <input type="text" class="msdd-search" placeholder="🔍 Search nuts…" oninput="filterMsdd('msdd-nuts',this.value)" autocomplete="off"/> -->
+                  <div class="msdd-list" id="msdd-nuts-list">
+                    <label class="msdd-option"><input type="checkbox" value="Almonds" onchange="msddChange('msdd-nuts')"/><div><div class="msdd-option-name">Almonds</div></div></label>
+                    <label class="msdd-option"><input type="checkbox" value="Walnuts" onchange="msddChange('msdd-nuts')"/><div><div class="msdd-option-name">Walnuts</div></div></label>
+                    <label class="msdd-option"><input type="checkbox" value="Cashews" onchange="msddChange('msdd-nuts')"/><div><div class="msdd-option-name">Cashews</div></div></label>
+                    <label class="msdd-option"><input type="checkbox" value="Pistachios" onchange="msddChange('msdd-nuts')"/><div><div class="msdd-option-name">Pistachios</div></div></label>
+                    <label class="msdd-option"><input type="checkbox" value="Peanuts" onchange="msddChange('msdd-nuts')"/><div><div class="msdd-option-name">Peanuts</div></div></label>
+                  </div>
+                </div>
+                <div class="msdd-tags" id="msdd-nuts-tags"></div>
               </div>
             </div>
-            <div class="msdd-tags" id="msdd-nuts-tags"></div>
-          </div>
-          <div class="sub-label" style="margin-top:14px;">Seeds</div>
-          <div class="msdd-wrap" id="msdd-seeds">
-            <div class="msdd-trigger" onclick="toggleMsdd('msdd-seeds')"><span id="msdd-seeds-label">Select seeds…</span><span>▾</span></div>
-            <div class="msdd-panel" id="msdd-seeds-panel">
-              <input type="text" class="msdd-search" placeholder="🔍 Search seeds…" oninput="filterMsdd('msdd-seeds',this.value)" autocomplete="off"/>
-              <div class="msdd-list" id="msdd-seeds-list">
-                <label class="msdd-option"><input type="checkbox" value="Sunflower Seeds" onchange="msddChange('msdd-seeds')"/><div><div class="msdd-option-name">Sunflower Seeds</div></div></label>
-                <label class="msdd-option"><input type="checkbox" value="Chia Seeds" onchange="msddChange('msdd-seeds')"/><div><div class="msdd-option-name">Chia Seeds</div></div></label>
-                <label class="msdd-option"><input type="checkbox" value="Flaxseeds" onchange="msddChange('msdd-seeds')"/><div><div class="msdd-option-name">Flaxseeds</div></div></label>
-                <label class="msdd-option"><input type="checkbox" value="Pumpkin Seeds" onchange="msddChange('msdd-seeds')"/><div><div class="msdd-option-name">Pumpkin Seeds</div></div></label>
+            <div class="msdd-col">
+              <div class="sub-label">Seeds</div>
+              <div class="msdd-wrap" id="msdd-seeds">
+                <div class="msdd-panel" id="msdd-seeds-panel">
+                  <!-- <input type="text" class="msdd-search" placeholder="🔍 Search seeds…" oninput="filterMsdd('msdd-seeds',this.value)" autocomplete="off"/> -->
+                  <div class="msdd-list" id="msdd-seeds-list">
+                    <label class="msdd-option"><input type="checkbox" value="Sunflower Seeds" onchange="msddChange('msdd-seeds')"/><div><div class="msdd-option-name">Sunflower Seeds</div></div></label>
+                    <label class="msdd-option"><input type="checkbox" value="Chia Seeds" onchange="msddChange('msdd-seeds')"/><div><div class="msdd-option-name">Chia Seeds</div></div></label>
+                    <label class="msdd-option"><input type="checkbox" value="Flaxseeds" onchange="msddChange('msdd-seeds')"/><div><div class="msdd-option-name">Flaxseeds</div></div></label>
+                    <label class="msdd-option"><input type="checkbox" value="Pumpkin Seeds" onchange="msddChange('msdd-seeds')"/><div><div class="msdd-option-name">Pumpkin Seeds</div></div></label>
+                  </div>
+                </div>
+                <div class="msdd-tags" id="msdd-seeds-tags"></div>
               </div>
             </div>
-            <div class="msdd-tags" id="msdd-seeds-tags"></div>
           </div>
-          <div class="time-chip-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Nuts and seeds are great for healthy fats, protein, and micronutrients</div>
+          <div class="time-chip-hint" style="margin-top:10px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Nuts and seeds are great for healthy fats, protein, and micronutrients</div>
         </div>
       </div>
 
@@ -2566,11 +2938,10 @@ html
       <div class="accordion-item" id="fruits-section">
         <div class="accordion-header" onclick="toggleAccordion(this)"><span>Fruits</span><span class="chevron">▾</span></div>
         <div class="accordion-body">
-          <div class="sub-label">Choose Fruits from the dropdown</div>
+          <div class="sub-label">Choose Fruits</div>
           <div class="msdd-wrap" id="msdd-fruits">
-            <div class="msdd-trigger" onclick="toggleMsdd('msdd-fruits')"><span id="msdd-fruits-label">Select fruits…</span><span>▾</span></div>
             <div class="msdd-panel" id="msdd-fruits-panel">
-              <input type="text" class="msdd-search" placeholder="🔍 Search fruits…" oninput="filterMsdd('msdd-fruits',this.value)" autocomplete="off"/>
+              <!-- <input type="text" class="msdd-search" placeholder="🔍 Search fruits…" oninput="filterMsdd('msdd-fruits',this.value)" autocomplete="off"/> -->
               <div class="msdd-list" id="msdd-fruits-list">
                 <label class="msdd-option"><input type="checkbox" value="Apple" onchange="msddChange('msdd-fruits')"/><div><div class="msdd-option-name">Apple</div><div class="msdd-option-nutrients">Good source of Dietary Fiber, Vitamin C</div></div></label>
                 <label class="msdd-option"><input type="checkbox" value="Banana" onchange="msddChange('msdd-fruits')"/><div><div class="msdd-option-name">Banana</div><div class="msdd-option-nutrients">Good source of Vitamin B6, Manganese, Copper, Vitamin C, Potassium</div></div></label>
@@ -2593,11 +2964,10 @@ html
       <div class="accordion-item" id="veggies-section">
         <div class="accordion-header" onclick="toggleAccordion(this)"><span>Vegetables</span><span class="chevron">▾</span></div>
         <div class="accordion-body">
-          <div class="sub-label">Choose Vegetables from the dropdown</div>
+          <div class="sub-label">Choose Vegetables</div>
           <div class="msdd-wrap" id="msdd-veggies">
-            <div class="msdd-trigger" onclick="toggleMsdd('msdd-veggies')"><span id="msdd-veggies-label">Select vegetables…</span><span>▾</span></div>
             <div class="msdd-panel" id="msdd-veggies-panel">
-              <input type="text" class="msdd-search" placeholder="🔍 Search vegetables…" oninput="filterMsdd('msdd-veggies',this.value)" autocomplete="off"/>
+              <!-- <input type="text" class="msdd-search" placeholder="🔍 Search vegetables…" oninput="filterMsdd('msdd-veggies',this.value)" autocomplete="off"/> -->
               <div class="msdd-list" id="msdd-veggies-list">
                 <label class="msdd-option"><input type="checkbox" value="Spinach" onchange="msddChange('msdd-veggies')"/><div><div class="msdd-option-name">Spinach</div></div></label>
                 <label class="msdd-option"><input type="checkbox" value="Broccoli" onchange="msddChange('msdd-veggies')"/><div><div class="msdd-option-name">Broccoli</div></div></label>
@@ -2619,11 +2989,10 @@ html
       <div class="accordion-item">
         <div class="accordion-header" onclick="toggleAccordion(this)"><span>Sprouts</span><span class="chevron">▾</span></div>
         <div class="accordion-body">
-          <div class="sub-label">Choose Sprouts from the dropdown</div>
+          <div class="sub-label">Choose Sprouts</div>
           <div class="msdd-wrap" id="msdd-sprouts">
-            <div class="msdd-trigger" onclick="toggleMsdd('msdd-sprouts')"><span id="msdd-sprouts-label">Select sprouts…</span><span>▾</span></div>
             <div class="msdd-panel" id="msdd-sprouts-panel">
-              <input type="text" class="msdd-search" placeholder="🔍 Search sprouts…" oninput="filterMsdd('msdd-sprouts',this.value)" autocomplete="off"/>
+              <!-- <input type="text" class="msdd-search" placeholder="🔍 Search sprouts…" oninput="filterMsdd('msdd-sprouts',this.value)" autocomplete="off"/> -->
               <div class="msdd-list" id="msdd-sprouts-list">
                 <label class="msdd-option"><input type="checkbox" value="Chana (Black Chickpea) Sprouts" onchange="msddChange('msdd-sprouts')"/><div><div class="msdd-option-name">Chana (Black Chickpea) Sprouts</div></div></label>
                 <label class="msdd-option"><input type="checkbox" value="Soybean Sprouts" onchange="msddChange('msdd-sprouts')"/><div><div class="msdd-option-name">Soybean Sprouts</div></div></label>
@@ -2644,34 +3013,37 @@ html
       <div class="accordion-item">
         <div class="accordion-header" onclick="toggleAccordion(this)"><span>Milkshakes &amp; Smoothies</span><span class="chevron">▾</span></div>
         <div class="accordion-body">
-          <div class="sub-label">Choose Milkshakes and Smoothies from the dropdown</div>
-          <div class="sub-label">Milkshakes</div>
-          <div class="msdd-wrap" id="msdd-milkshakes">
-            <div class="msdd-trigger" onclick="toggleMsdd('msdd-milkshakes')"><span id="msdd-milkshakes-label">Select milkshakes…</span><span>▾</span></div>
-            <div class="msdd-panel" id="msdd-milkshakes-panel">
-              <input type="text" class="msdd-search" placeholder="🔍 Search milkshakes…" oninput="filterMsdd('msdd-milkshakes',this.value)" autocomplete="off"/>
-              <div class="msdd-list" id="msdd-milkshakes-list">
-                <label class="msdd-option"><input type="checkbox" value="Banana Peanut Butter Milkshake" onchange="msddChange('msdd-milkshakes')"/><div><div class="msdd-option-name">Banana Peanut Butter Milkshake</div></div></label>
-                <label class="msdd-option"><input type="checkbox" value="Chia Seeds Milkshake" onchange="msddChange('msdd-milkshakes')"/><div><div class="msdd-option-name">Chia Seeds Milkshake</div></div></label>
-                <label class="msdd-option"><input type="checkbox" value="Dry Fruit Milkshake" onchange="msddChange('msdd-milkshakes')"/><div><div class="msdd-option-name">Dry Fruit Milkshake</div></div></label>
-                <label class="msdd-option"><input type="checkbox" value="Banana Milkshake" onchange="msddChange('msdd-milkshakes')"/><div><div class="msdd-option-name">Banana Milkshake</div></div></label>
+          <div class="msdd-side-by-side">
+            <div class="msdd-col">
+              <div class="sub-label">Milkshakes</div>
+              <div class="msdd-wrap" id="msdd-milkshakes">
+                <div class="msdd-panel" id="msdd-milkshakes-panel">
+                  <!-- <input type="text" class="msdd-search" placeholder="🔍 Search milkshakes…" oninput="filterMsdd('msdd-milkshakes',this.value)" autocomplete="off"/> -->
+                  <div class="msdd-list" id="msdd-milkshakes-list">
+                    <label class="msdd-option"><input type="checkbox" value="Banana Peanut Butter Milkshake" onchange="msddChange('msdd-milkshakes')"/><div><div class="msdd-option-name">Banana Peanut Butter Milkshake</div></div></label>
+                    <label class="msdd-option"><input type="checkbox" value="Chia Seeds Milkshake" onchange="msddChange('msdd-milkshakes')"/><div><div class="msdd-option-name">Chia Seeds Milkshake</div></div></label>
+                    <label class="msdd-option"><input type="checkbox" value="Dry Fruit Milkshake" onchange="msddChange('msdd-milkshakes')"/><div><div class="msdd-option-name">Dry Fruit Milkshake</div></div></label>
+                    <label class="msdd-option"><input type="checkbox" value="Banana Milkshake" onchange="msddChange('msdd-milkshakes')"/><div><div class="msdd-option-name">Banana Milkshake</div></div></label>
+                  </div>
+                </div>
+                <div class="msdd-tags" id="msdd-milkshakes-tags"></div>
               </div>
             </div>
-            <div class="msdd-tags" id="msdd-milkshakes-tags"></div>
-          </div>
-          <div class="sub-label" style="margin-top:14px;">Smoothies</div>
-          <div class="msdd-wrap" id="msdd-smoothies">
-            <div class="msdd-trigger" onclick="toggleMsdd('msdd-smoothies')"><span id="msdd-smoothies-label">Select smoothies…</span><span>▾</span></div>
-            <div class="msdd-panel" id="msdd-smoothies-panel">
-              <input type="text" class="msdd-search" placeholder="🔍 Search smoothies…" oninput="filterMsdd('msdd-smoothies',this.value)" autocomplete="off"/>
-              <div class="msdd-list" id="msdd-smoothies-list">
-                <label class="msdd-option"><input type="checkbox" value="Chia Seeds Smoothie" onchange="msddChange('msdd-smoothies')"/><div><div class="msdd-option-name">Chia Seeds Smoothie</div></div></label>
-                <label class="msdd-option"><input type="checkbox" value="Banana and Spinach Smoothie" onchange="msddChange('msdd-smoothies')"/><div><div class="msdd-option-name">Banana and Spinach Smoothie</div></div></label>
-                <label class="msdd-option"><input type="checkbox" value="Pineapple and Banana Smoothie" onchange="msddChange('msdd-smoothies')"/><div><div class="msdd-option-name">Pineapple and Banana Smoothie</div></div></label>
-                <label class="msdd-option"><input type="checkbox" value="Pineapple Kiwi Smoothie" onchange="msddChange('msdd-smoothies')"/><div><div class="msdd-option-name">Pineapple Kiwi Smoothie</div></div></label>
+            <div class="msdd-col">
+              <div class="sub-label">Smoothies</div>
+              <div class="msdd-wrap" id="msdd-smoothies">
+                <div class="msdd-panel" id="msdd-smoothies-panel">
+                  <!-- <input type="text" class="msdd-search" placeholder="🔍 Search smoothies…" oninput="filterMsdd('msdd-smoothies',this.value)" autocomplete="off"/> -->
+                  <div class="msdd-list" id="msdd-smoothies-list">
+                    <label class="msdd-option"><input type="checkbox" value="Chia Seeds Smoothie" onchange="msddChange('msdd-smoothies')"/><div><div class="msdd-option-name">Chia Seeds Smoothie</div></div></label>
+                    <label class="msdd-option"><input type="checkbox" value="Banana and Spinach Smoothie" onchange="msddChange('msdd-smoothies')"/><div><div class="msdd-option-name">Banana and Spinach Smoothie</div></div></label>
+                    <label class="msdd-option"><input type="checkbox" value="Pineapple and Banana Smoothie" onchange="msddChange('msdd-smoothies')"/><div><div class="msdd-option-name">Pineapple and Banana Smoothie</div></div></label>
+                    <label class="msdd-option"><input type="checkbox" value="Pineapple Kiwi Smoothie" onchange="msddChange('msdd-smoothies')"/><div><div class="msdd-option-name">Pineapple Kiwi Smoothie</div></div></label>
+                  </div>
+                </div>
+                <div class="msdd-tags" id="msdd-smoothies-tags"></div>
               </div>
             </div>
-            <div class="msdd-tags" id="msdd-smoothies-tags"></div>
           </div>
         </div>
       </div>
@@ -2682,9 +3054,8 @@ html
         <div class="accordion-body">
           <div class="sub-label">Choose Porridge & Malt drinks from the dropdown</div>
           <div class="msdd-wrap" id="msdd-porridge">
-            <div class="msdd-trigger" onclick="toggleMsdd('msdd-porridge')"><span id="msdd-porridge-label">Select porridge / malt drinks…</span><span>▾</span></div>
             <div class="msdd-panel" id="msdd-porridge-panel">
-              <input type="text" class="msdd-search" placeholder="🔍 Search porridge &amp; malts…" oninput="filterMsdd('msdd-porridge',this.value)" autocomplete="off"/>
+              <!-- <input type="text" class="msdd-search" placeholder="🔍 Search porridge &amp; malts…" oninput="filterMsdd('msdd-porridge',this.value)" autocomplete="off"/> -->
               <div class="msdd-list" id="msdd-porridge-list">
                 <label class="msdd-option"><input type="checkbox" value="Multigrain Malt Drink" onchange="msddChange('msdd-porridge')"/><div><div class="msdd-option-name">Multigrain Malt Drink</div></div></label>
                 <label class="msdd-option"><input type="checkbox" value="Jowar Malt" onchange="msddChange('msdd-porridge')"/><div><div class="msdd-option-name">Jowar Malt</div></div></label>
@@ -2716,9 +3087,8 @@ html
         <div class="accordion-body">
           <div class="sub-label">Choose Breakfast from the dropdown</div>
           <div class="msdd-wrap" id="msdd-breakfast">
-            <div class="msdd-trigger" onclick="toggleMsdd('msdd-breakfast')"><span id="msdd-breakfast-label">Select breakfast items…</span><span>▾</span></div>
             <div class="msdd-panel" id="msdd-breakfast-panel">
-              <input type="text" class="msdd-search" placeholder="🔍 Search breakfast…" oninput="filterMsdd('msdd-breakfast',this.value)" autocomplete="off"/>
+              <!-- <input type="text" class="msdd-search" placeholder="🔍 Search breakfast…" oninput="filterMsdd('msdd-breakfast',this.value)" autocomplete="off"/> -->
               <div class="msdd-list" id="msdd-breakfast-list">
                 <label class="msdd-option"><input type="checkbox" value="Pesarattu" onchange="msddChange('msdd-breakfast')"/><div><div class="msdd-option-name">Pesarattu</div></div></label>
                 <label class="msdd-option"><input type="checkbox" value="Upma" onchange="msddChange('msdd-breakfast')"/><div><div class="msdd-option-name">Upma</div></div></label>
@@ -2739,11 +3109,10 @@ html
       <div class="accordion-item">
         <div class="accordion-header" onclick="toggleAccordion(this)"><span>Chutney</span><span class="chevron">▾</span></div>
         <div class="accordion-body">
-          <div class="sub-label">Choose Chutneys from the dropdown</div>
+          <div class="sub-label">Choose Chutneys</div>
           <div class="msdd-wrap" id="msdd-chutney">
-            <div class="msdd-trigger" onclick="toggleMsdd('msdd-chutney')"><span id="msdd-chutney-label">Select chutneys…</span><span>▾</span></div>
             <div class="msdd-panel" id="msdd-chutney-panel">
-              <input type="text" class="msdd-search" placeholder="🔍 Search chutney…" oninput="filterMsdd('msdd-chutney',this.value)" autocomplete="off"/>
+              <!-- <input type="text" class="msdd-search" placeholder="🔍 Search chutney…" oninput="filterMsdd('msdd-chutney',this.value)" autocomplete="off"/> -->
               <div class="msdd-list" id="msdd-chutney-list">
                 <label class="msdd-option"><input type="checkbox" value="Peanut Chutney" onchange="msddChange('msdd-chutney')"/><div><div class="msdd-option-name">Peanut Chutney</div></div></label>
                 <label class="msdd-option"><input type="checkbox" value="Ginger Chutney" onchange="msddChange('msdd-chutney')"/><div><div class="msdd-option-name">Ginger Chutney</div></div></label>
@@ -2762,9 +3131,8 @@ html
         <div class="accordion-body">
           <div class="sub-label">Choose Powders from the dropdown</div>
           <div class="msdd-wrap" id="msdd-powders">
-            <div class="msdd-trigger" onclick="toggleMsdd('msdd-powders')"><span id="msdd-powders-label">Select powders…</span><span>▾</span></div>
             <div class="msdd-panel" id="msdd-powders-panel">
-              <input type="text" class="msdd-search" placeholder="🔍 Search powders…" oninput="filterMsdd('msdd-powders',this.value)" autocomplete="off"/>
+              <!-- <input type="text" class="msdd-search" placeholder="🔍 Search powders…" oninput="filterMsdd('msdd-powders',this.value)" autocomplete="off"/> -->
               <div class="msdd-list" id="msdd-powders-list">
                 <label class="msdd-option"><input type="checkbox" value="Flax Seeds Idli Podi" onchange="msddChange('msdd-powders')"/><div><div class="msdd-option-name">Flax Seeds Idli Podi</div></div></label>
                 <label class="msdd-option"><input type="checkbox" value="Garlic Podi" onchange="msddChange('msdd-powders')"/><div><div class="msdd-option-name">Garlic Podi</div></div></label>
@@ -2784,9 +3152,8 @@ html
         <div class="accordion-body">
           <div class="sub-label">Choose Non veg items from the dropdown</div>
           <div class="msdd-wrap" id="msdd-nonveg">
-            <div class="msdd-trigger" onclick="toggleMsdd('msdd-nonveg')"><span id="msdd-nonveg-label">Select non-veg items…</span><span>▾</span></div>
             <div class="msdd-panel" id="msdd-nonveg-panel">
-              <input type="text" class="msdd-search" placeholder="🔍 Search non-veg…" oninput="filterMsdd('msdd-nonveg',this.value)" autocomplete="off"/>
+              <!-- <input type="text" class="msdd-search" placeholder="🔍 Search non-veg…" oninput="filterMsdd('msdd-nonveg',this.value)" autocomplete="off"/> -->
               <div class="msdd-list" id="msdd-nonveg-list">
                 <label class="msdd-option"><input type="checkbox" value="Egg" onchange="msddChange('msdd-nonveg')"/><div><div class="msdd-option-name">Egg</div></div></label>
                 <label class="msdd-option"><input type="checkbox" value="Chicken" onchange="msddChange('msdd-nonveg')"/><div><div class="msdd-option-name">Chicken</div></div></label>
@@ -2807,11 +3174,10 @@ html
       <div class="accordion-item">
         <div class="accordion-header" onclick="toggleAccordion(this)"><span>Rice</span><span class="chevron">▾</span></div>
         <div class="accordion-body">
-          <div class="sub-label">Choose Rice from the dropdown</div>
+          <div class="sub-label">Choose Rice</div>
           <div class="msdd-wrap" id="msdd-rice">
-            <div class="msdd-trigger" onclick="toggleMsdd('msdd-rice')"><span id="msdd-rice-label">Select rice varieties…</span><span>▾</span></div>
             <div class="msdd-panel" id="msdd-rice-panel">
-              <input type="text" class="msdd-search" placeholder="🔍 Search rice…" oninput="filterMsdd('msdd-rice',this.value)" autocomplete="off"/>
+              <!-- <input type="text" class="msdd-search" placeholder="🔍 Search rice…" oninput="filterMsdd('msdd-rice',this.value)" autocomplete="off"/> -->
               <div class="msdd-list" id="msdd-rice-list">
                 <label class="msdd-option"><input type="checkbox" value="White Rice" onchange="msddChange('msdd-rice')"/><div><div class="msdd-option-name">White Rice</div></div></label>
                 <label class="msdd-option"><input type="checkbox" value="Brown Rice" onchange="msddChange('msdd-rice')"/><div><div class="msdd-option-name">Brown Rice</div></div></label>
@@ -2826,11 +3192,10 @@ html
       <div class="accordion-item">
         <div class="accordion-header" onclick="toggleAccordion(this)"><span>Millets / Grains</span><span class="chevron">▾</span></div>
         <div class="accordion-body">
-          <div class="sub-label">Choose Millets / Grains from the dropdown</div>
+          <div class="sub-label">Choose Millets / Grains</div>
           <div class="msdd-wrap" id="msdd-millets">
-            <div class="msdd-trigger" onclick="toggleMsdd('msdd-millets')"><span id="msdd-millets-label">Select millets / grains…</span><span>▾</span></div>
             <div class="msdd-panel" id="msdd-millets-panel">
-              <input type="text" class="msdd-search" placeholder="🔍 Search millets…" oninput="filterMsdd('msdd-millets',this.value)" autocomplete="off"/>
+              <!-- <input type="text" class="msdd-search" placeholder="🔍 Search millets…" oninput="filterMsdd('msdd-millets',this.value)" autocomplete="off"/> -->
               <div class="msdd-list" id="msdd-millets-list">
                 <label class="msdd-option"><input type="checkbox" value="Egg Paratha" onchange="msddChange('msdd-millets')"/><div><div class="msdd-option-name">Egg Paratha</div></div></label>
                 <label class="msdd-option"><input type="checkbox" value="Paneer Paratha" onchange="msddChange('msdd-millets')"/><div><div class="msdd-option-name">Paneer Paratha</div></div></label>
@@ -2914,14 +3279,10 @@ html
 </div><!-- end wizard-body -->
 
 <!-- ══════════════════════════════════════════
-     WIZARD FOOTER NAV
+     WIZARD FOOTER NAV (navigation via top navbar)
 ══════════════════════════════════════════ -->
 <div id="wizard-footer">
-  <div class="wf-step-indicator">
-    Step <strong id="wf-current-step">1</strong> of <strong>4</strong>
-  </div>
   <div class="wf-nav-btns">
-    <button class="btn-wf-back" id="wf-back-btn" onclick="wizardBack()" disabled>← Back</button>
     <button class="btn-wf-next" id="wf-next-btn" onclick="wizardNext()">Continue →</button>
   </div>
 </div>
@@ -2948,35 +3309,24 @@ function wizardGo(step, direction) {
     newPanel.classList.add('active');
   }
 
-  // Update stepper
-  for (let i = 1; i <= WIZARD_TOTAL; i++) {
-    const el = document.getElementById('ws-step-' + i);
-    if (!el) continue;
-    el.classList.remove('active', 'done');
-    if (i < step) el.classList.add('done');
-    else if (i === step) el.classList.add('active');
-  }
-  // Update connectors
-  for (let i = 1; i < WIZARD_TOTAL; i++) {
-    const conn = document.getElementById('ws-conn-' + i);
-    if (conn) conn.classList.toggle('done', i < step);
+  // Update top navbar step links (steps 1-3 only; step 4 = complete, not shown)
+  for (let i = 1; i <= 3; i++) {
+    const link = document.getElementById('nav-link-' + i);
+    if (!link) continue;
+    link.classList.remove('active', 'visited');
+    if (i === step) link.classList.add('active');
+    else if (i < step) link.classList.add('visited');
   }
 
-  // Footer indicator
-  document.getElementById('wf-current-step').textContent = step;
-
-  // Back button
-  document.getElementById('wf-back-btn').disabled = (step === 1);
-
-  // Next button label
+  // Footer next button
   const nextBtn = document.getElementById('wf-next-btn');
-  if (step === WIZARD_TOTAL) {
-    nextBtn.textContent = '✓ Done';
-    nextBtn.style.display = 'none'; // hide on last step
-    document.getElementById('wf-back-btn').style.marginLeft = 'auto';
-  } else {
-    nextBtn.textContent = step === 3 ? 'Go to Summary →' : 'Continue →';
-    nextBtn.style.display = '';
+  if (nextBtn) {
+    if (step === WIZARD_TOTAL) {
+      nextBtn.style.display = 'none';
+    } else {
+      nextBtn.textContent = step === 3 ? 'Go to Summary →' : 'Continue →';
+      nextBtn.style.display = '';
+    }
   }
 
   // Scroll wizard body to top on step change
@@ -3073,13 +3423,9 @@ onAuthStateChanged(auth, async user => {
       if (signinBtn) signinBtn.classList.add('show');
       return;
     }
-    localStorage.setItem('np_auth', 'signed-in');
-    const initials = (user.email||'?').slice(0,2).toUpperCase();
-    profileBtn.textContent = initials;
-    profileBtn.classList.add('show');
-    if (signinBtn) signinBtn.classList.remove('show');
-    if (step0Block) step0Block.style.display = 'block';
-    checkUnreadMessages(user.uid);
+    // Already signed in — go straight to the diet plan dashboard
+    // window.location.href = 'dietplan.html';
+    return;
   } else {
     localStorage.removeItem('np_auth');
     profileBtn.classList.remove('show');
@@ -3299,7 +3645,8 @@ window.createAccount = async function() {
     if (_pendingFormData) { await saveToFirestore(_pendingFormData, uid, _isForSelf, _relName, _relation); saveLocalProfile(_pendingFormData.userId, _pendingFormData.name, _isForSelf, _relName, _relation); }
     localStorage.setItem('nutriplan_uid', uid);
     localStorage.setItem('nutriplan_email', email);
-    showAccountDone('Account Created! 🎉', 'Welcome! Your profile has been saved to your new account.');
+    // New user registered — open the diet plan dashboard
+    window.location.href = 'dietplan.html';
   } catch(e) {
     errEl.textContent = e.code === 'auth/email-already-in-use' ? 'An account with this email already exists. Please sign in instead.' : e.message;
     errEl.style.display = 'block';
@@ -3321,7 +3668,8 @@ window.signInExisting = async function() {
     if (_pendingFormData) { await saveToFirestore(_pendingFormData, uid, _isForSelf, _relName, _relation); saveLocalProfile(_pendingFormData.userId, _pendingFormData.name, _isForSelf, _relName, _relation); }
     localStorage.setItem('nutriplan_uid', uid);
     localStorage.setItem('nutriplan_email', email);
-    showAccountDone('Signed In! ✅', 'Your profile has been linked to your account (' + email + ').');
+    // Signed in — open the diet plan dashboard
+    window.location.href = 'dietplan.html';
   } catch(e) {
     errEl.textContent = (e.code==='auth/invalid-credential'||e.code==='auth/wrong-password'||e.code==='auth/user-not-found') ? 'Incorrect email or password.' : e.message;
     errEl.style.display = 'block';
@@ -3544,7 +3892,16 @@ const ACTIVITY_LEVELS = [
 function calcBMI(wt,ht) { return (wt/((ht/100)**2)).toFixed(1); }
 function bmiCategory(b) { if(b<18.5) return 'Underweight'; if(b<25) return 'Normal weight'; if(b<30) return 'Overweight'; return 'Obese'; }
 function bmiColor(b) { if(b<18.5) return '#5bc8f5'; if(b<25) return '#60d394'; if(b<30) return '#f4a742'; return '#e74c3c'; }
-function bmiToBarPct(bmi) { const MIN=15,RANGE=25; const c=Math.min(40,Math.max(15,parseFloat(bmi))); return ((c-MIN)/RANGE*100).toFixed(1)+'%'; }
+function bmiToBarPct(bmi) {
+  // Bar spans BMI 10–40 (range=30), with proportional zones:
+  // Under: 10–18.5 (8.5 units = 28.33%)
+  // Normal: 18.5–25 (6.5 units = 21.67%)
+  // Over: 25–30 (5 units = 16.67%)
+  // Obese: 30–40 (10 units = 33.33%)
+  const MIN = 10, MAX = 40, RANGE = 30;
+  const clamped = Math.min(MAX, Math.max(MIN, parseFloat(bmi)));
+  return ((clamped - MIN) / RANGE * 100).toFixed(2) + '%';
+}
 function calcBodyFat(gender, waist, neck, hip, height) {
   let bfp;
   if (gender === 'Female') { const log1 = Math.log10(waist + hip - neck); const log2 = Math.log10(height); bfp = 495 / (1.29579 - 0.35004 * log1 + 0.22100 * log2) - 450; }
@@ -3587,6 +3944,13 @@ function updateGoalRateButtonLabels(direction) {
   });
 }
 
+// Chip configs per rate
+const GRB_CHIPS = {
+  '0.25': { label: 'Gentle',        activeBg: 'rgba(255,255,255,0.2)',  activeColor: '#fff', inactiveBg: '#e6f7f5',  inactiveColor: '#14786c' },
+  '0.5':  { label: '⭐ Recommended', activeBg: 'rgba(255,255,255,0.25)', activeColor: '#fff', inactiveBg: '#e6f7f5',  inactiveColor: '#14786c' },
+  '1':    { label: 'Aggressive',     activeBg: 'rgba(255,255,255,0.2)',  activeColor: '#fff', inactiveBg: '#fef9ec',  inactiveColor: '#92400e' },
+};
+
 window.selectGoalRate = function(btn) {
   document.querySelectorAll('.goal-rate-btn').forEach(b => {
     b.classList.remove('active-goal');
@@ -3594,12 +3958,24 @@ window.selectGoalRate = function(btn) {
     b.style.background = 'var(--bg)';
     b.querySelector('.grb-title').style.color = 'var(--text)';
     b.querySelector('.grb-rate').style.color = 'var(--muted)';
+    // Reset chip to inactive style
+    const chip = b.querySelector('.grb-chip');
+    if (chip) {
+      const cfg = GRB_CHIPS[b.dataset.rate];
+      if (cfg) { chip.style.background = cfg.inactiveBg; chip.style.color = cfg.inactiveColor; }
+    }
   });
   btn.classList.add('active-goal');
   btn.style.border = '2px solid var(--teal)';
   btn.style.background = 'var(--teal)';
   btn.querySelector('.grb-title').style.color = '#fff';
   btn.querySelector('.grb-rate').style.color = 'rgba(255,255,255,0.85)';
+  // Set chip to active style
+  const activeChip = btn.querySelector('.grb-chip');
+  if (activeChip) {
+    const cfg = GRB_CHIPS[btn.dataset.rate];
+    if (cfg) { activeChip.style.background = cfg.activeBg; activeChip.style.color = cfg.activeColor; }
+  }
 
   _currentGoalRate = parseFloat(btn.dataset.rate);
   const extremeWarn = document.getElementById('extreme-warning');
@@ -3728,19 +4104,24 @@ function generateResult() {
   bmiEl.style.color = color;
   g('r-bmi-cat').textContent = cat;
   g('r-bmi-cat').style.color = color;
-  g('bmi-marker').style.left = bmiToBarPct(bmiNum);
+
+  // Update marker position
+  const pct = bmiToBarPct(bmiNum);
+  g('bmi-marker').style.left = pct;
   g('bmi-marker').style.borderColor = color;
 
   // Present Weight
   g('r-present-wt').innerHTML = `${wt.toFixed(1)}<span class="unit">kg</span>`;
 
-  // Ideal Weight Range (min – max)
-  g('r-ideal-range-val').innerHTML = `${minWeight.toFixed(1)}<span class="unit">kg</span><span style="font-size:0.9rem;color:#60d394;font-weight:500;margin:0 2px;">–</span>${maxWeight.toFixed(1)}<span class="unit">kg</span>`;
+  // Hidden ideal range val (kept for JS compatibility)
+  g('r-ideal-range-val').innerHTML = `${minWeight.toFixed(1)}<span class="unit">kg</span>–${maxWeight.toFixed(1)}<span class="unit">kg</span>`;
 
-  // Ideal Weight (bottom row card 4 — was Target Weight)
+  // Ideal Weight + range text below
   g('r-target-wt').innerHTML = `${idealWeight.toFixed(1)}<span class="unit">kg</span>`;
+  const rangeTextEl = g('r-ideal-range-text');
+  if (rangeTextEl) rangeTextEl.textContent = `Ideal Range: ${minWeight.toFixed(1)} kg – ${maxWeight.toFixed(1)} kg`;
 
-  // Body Fat % (bottom row card 5 — moved from Section 4)
+  // Body Fat %
   const fatNum = parseFloat(fat);
   if (fat !== '—') {
     g('r-fat').innerHTML = `${fat}<span class="unit">%</span>`;
@@ -3754,8 +4135,10 @@ function generateResult() {
   } else { fatCat = 'Enter waist, neck' + (gender === 'Female' ? ' & hip' : '') + ' to calculate'; }
   g('r-fat-cat').textContent = fatCat;
 
-  // Weight to Lose/Gain
+  // Weight to Lose/Gain — color-code by direction
+  const wlColor = direction === 'maintain' ? '#60d394' : direction === 'loss' ? '#f4a742' : '#5bc8f5';
   g('r-wl-total').innerHTML = `${kgDiff.toFixed(1)}<span class="unit">kg</span>`;
+  g('r-wl-total').style.color = wlColor;
   g('r-wl-label').textContent = direction === 'maintain' ? 'Status' : (direction === 'loss' ? 'To Lose' : 'To Gain');
   g('r-wl-direction').textContent = direction === 'maintain' ? 'Already ideal! 🎉' : (direction === 'loss' ? 'Weight loss needed' : 'Weight gain needed');
 
@@ -3885,23 +4268,6 @@ window.filterHealthOptions = function(q) {
 
 // ── MULTI-SELECT DROPDOWNS ──
 const msddState = {};
-window.toggleMsdd = function(id) {
-  const panel = document.getElementById(id+'-panel');
-  const trigger = document.querySelector('#'+id+' .msdd-trigger');
-  const isOpen = panel.classList.contains('open');
-  document.querySelectorAll('.msdd-panel.open').forEach(p => {
-    p.classList.remove('open');
-    const t = p.closest('.msdd-wrap')?.querySelector('.msdd-trigger');
-    if (t) { t.classList.remove('open'); t.style.borderRadius = ''; t.style.borderBottomColor = ''; }
-  });
-  if (!isOpen) {
-    panel.classList.add('open');
-    trigger.classList.add('open');
-    trigger.style.borderRadius = 'var(--radius-sm) var(--radius-sm) 0 0';
-    trigger.style.borderBottomColor = 'var(--teal)';
-    setTimeout(() => panel.querySelector('.msdd-search')?.focus(), 60);
-  }
-};
 window.filterMsdd = function(id, q) {
   const term = q.toLowerCase();
   document.querySelectorAll('#'+id+'-list .msdd-option').forEach(opt => { opt.classList.toggle('hidden', term.length > 0 && !opt.textContent.toLowerCase().includes(term)); });
@@ -3909,11 +4275,6 @@ window.filterMsdd = function(id, q) {
 window.msddChange = function(id) {
   const checked = [...document.querySelectorAll('#'+id+'-list input:checked')].map(c=>c.value);
   msddState[id] = checked;
-  const labelEl = document.getElementById(id+'-label');
-  const trigger = document.querySelector('#'+id+' .msdd-trigger');
-  const placeholders = {'msdd-drinks':'Select drinks…','msdd-nuts':'Select nuts…','msdd-seeds':'Select seeds…','msdd-fruits':'Select fruits…','msdd-veggies':'Select vegetables…','msdd-sprouts':'Select sprouts…','msdd-milkshakes':'Select milkshakes…','msdd-smoothies':'Select smoothies…','msdd-porridge':'Select porridge / malt drinks…','msdd-breakfast':'Select breakfast items…','msdd-chutney':'Select chutneys…','msdd-powders':'Select powders…','msdd-nonveg':'Select non-veg items…','msdd-rice':'Select rice varieties…','msdd-millets':'Select millets / grains…'};
-  if (checked.length === 0) { if (labelEl) labelEl.textContent = placeholders[id]||'Select…'; if (trigger) trigger.classList.remove('has-selection'); }
-  else { if (labelEl) labelEl.textContent = checked.join(', '); if (trigger) trigger.classList.add('has-selection'); }
   renderMsddTags(id, checked);
 };
 function renderMsddTags(id, items) {
@@ -3925,23 +4286,11 @@ window.removeMsddTag = function(id, value) {
   const cb = document.querySelector('#'+id+'-list input[value="'+value+'"]');
   if (cb) { cb.checked=false; msddChange(id); }
 };
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('.msdd-wrap')) {
-    document.querySelectorAll('.msdd-panel.open').forEach(p => {
-      p.classList.remove('open');
-      const t = p.closest('.msdd-wrap')?.querySelector('.msdd-trigger');
-      if (t) { t.classList.remove('open'); t.style.borderRadius=''; t.style.borderBottomColor=''; }
-    });
-  }
-});
-
 // ── ACCORDION / CHIPS ──
 window.toggleAccordion = function(h){
-  const body=h.nextElementSibling; const wasOpen=h.classList.contains('open');
+  const body=h.nextElementSibling;
   h.classList.toggle('open'); body.classList.toggle('open');
-  const skipIds=['drinks-section','nuts-section'];
-  const item=h.closest('.accordion-item'); const skip=skipIds.some(id=>item&&item.id===id);
-  if(!wasOpen&&!skip){ const firstMsdd=body.querySelector('.msdd-wrap'); if(firstMsdd) setTimeout(()=>window.toggleMsdd(firstMsdd.id),50); }
+  if(body.classList.contains('open')){ const firstSearch=body.querySelector('.msdd-search'); if(firstSearch) setTimeout(()=>firstSearch.focus(),80); }
 };
 window.toggleChip = el=>el.classList.toggle('active');
 window.ynToggle = (btn,type)=>{ btn.parentElement.querySelectorAll('.yn-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const d=document.getElementById('drink-opts'); if(d) d.style.display=type==='yes'?'block':'none'; };
@@ -4141,7 +4490,7 @@ function clearForm() {
 }
 
 // ── EXPOSE GLOBALS ──
-window.toggleAccordion = function(h){ const body=h.nextElementSibling; const wasOpen=h.classList.contains('open'); h.classList.toggle('open'); body.classList.toggle('open'); const skipIds=['drinks-section','nuts-section']; const item=h.closest('.accordion-item'); const skip=skipIds.some(id=>item&&item.id===id); if(!wasOpen&&!skip){ const firstMsdd=body.querySelector('.msdd-wrap'); if(firstMsdd) setTimeout(()=>window.toggleMsdd(firstMsdd.id),50); } };
+window.toggleAccordion = function(h){ const body=h.nextElementSibling; h.classList.toggle('open'); body.classList.toggle('open'); if(body.classList.contains('open')){ const firstSearch=body.querySelector('.msdd-search'); if(firstSearch) setTimeout(()=>firstSearch.focus(),80); } };
 window.toggleChip = el=>el.classList.toggle('active');
 window.ynToggle = (btn,type)=>{ btn.parentElement.querySelectorAll('.yn-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const d=document.getElementById('drink-opts'); if(d) d.style.display=type==='yes'?'block':'none'; };
 window.setPlanFor = function(type) {
@@ -4979,6 +5328,156 @@ window.loadArticle = loadArticle;
 window.markArticleComplete = markArticleComplete;
 window.openEduSidebar = openEduSidebar;
 window.closeEduSidebar = closeEduSidebar;
+
+// ══════════════════════════════════════════
+//  WEEKLY EATING RULES — State & Logic
+// ══════════════════════════════════════════
+const werState = {
+  // { 'Mon': { rules: Set, custom: '' }, ... }
+  days: {},
+  activeDay: null,
+  repeat: null
+};
+
+const DAY_FULL = { Mon:'Monday', Tue:'Tuesday', Wed:'Wednesday', Thu:'Thursday', Fri:'Friday', Sat:'Saturday', Sun:'Sunday' };
+
+function werSelectDay(day, chipEl) {
+  const wasActive = werState.activeDay === day;
+
+  // Deactivate all chips
+  document.querySelectorAll('.wer-day-chip').forEach(c => c.classList.remove('active'));
+
+  if (wasActive) {
+    // Toggle off — close panel
+    werState.activeDay = null;
+    werHidePanel();
+    return;
+  }
+
+  // Activate clicked chip
+  chipEl.classList.add('active');
+  werState.activeDay = day;
+
+  // Ensure state entry exists
+  if (!werState.days[day]) werState.days[day] = { rules: new Set(), custom: '' };
+
+  werRenderPanel(day);
+  werShowRepeatRow();
+}
+
+function werRenderPanel(day) {
+  const panel = document.getElementById('wer-panel');
+  const label = document.getElementById('wer-panel-day-label');
+  const customWrap = document.getElementById('wer-custom-wrap');
+  const customInput = document.getElementById('wer-custom-input');
+
+  label.textContent = DAY_FULL[day];
+
+  // Rebuild rule chips state
+  const saved = werState.days[day] || { rules: new Set(), custom: '' };
+  document.querySelectorAll('.wer-rule-chip').forEach(chip => {
+    const rule = chip.getAttribute('data-rule');
+    if (saved.rules.has(rule)) {
+      chip.classList.add('active');
+    } else {
+      chip.classList.remove('active');
+    }
+  });
+
+  // Custom
+  const hasCustom = saved.rules.has('Custom');
+  customInput.value = saved.custom || '';
+  if (hasCustom) {
+    customWrap.classList.add('show');
+  } else {
+    customWrap.classList.remove('show');
+  }
+
+  // Animate in
+  panel.style.display = 'block';
+  panel.style.animation = 'none';
+  requestAnimationFrame(() => {
+    panel.style.animation = '';
+  });
+}
+
+function werHidePanel() {
+  const panel = document.getElementById('wer-panel');
+  panel.style.display = 'none';
+}
+
+function werToggleRule(chipEl) {
+  const day = werState.activeDay;
+  if (!day) return;
+
+  const rule = chipEl.getAttribute('data-rule');
+  const dayData = werState.days[day];
+
+  if (chipEl.classList.contains('active')) {
+    chipEl.classList.remove('active');
+    dayData.rules.delete(rule);
+  } else {
+    chipEl.classList.add('active');
+    dayData.rules.add(rule);
+  }
+
+  // Custom input visibility
+  const customWrap = document.getElementById('wer-custom-wrap');
+  if (dayData.rules.has('Custom')) {
+    customWrap.classList.add('show');
+    document.getElementById('wer-custom-input').focus();
+  } else {
+    customWrap.classList.remove('show');
+  }
+
+  // Update dot indicator on day chip
+  werUpdateDot(day);
+}
+
+function werSaveCustom(val) {
+  const day = werState.activeDay;
+  if (!day) return;
+  werState.days[day].custom = val;
+}
+
+function werUpdateDot(day) {
+  const chip = document.querySelector(`.wer-day-chip[data-day="${day}"]`);
+  if (!chip) return;
+  const dayData = werState.days[day];
+  if (dayData && dayData.rules.size > 0) {
+    chip.classList.add('has-rules');
+  } else {
+    chip.classList.remove('has-rules');
+  }
+}
+
+function werShowRepeatRow() {
+  const row = document.getElementById('wer-repeat-row');
+  if (row.style.display === 'none' || row.style.display === '') {
+    row.style.display = 'flex';
+    row.style.animation = 'none';
+    requestAnimationFrame(() => { row.style.animation = 'werPanelIn 0.22s cubic-bezier(.4,0,.2,1) both'; });
+  }
+}
+
+function werRepeatToggle(choice) {
+  // Clicking the already-active option deselects it completely
+  const isAlreadyActive = werState.repeat === choice;
+  werState.repeat = isAlreadyActive ? null : choice;
+
+  const yesBtn = document.getElementById('wer-yes-btn');
+  const noBtn  = document.getElementById('wer-no-btn');
+  const noMsg  = document.getElementById('wer-no-msg');
+
+  yesBtn.classList.toggle('active', werState.repeat === 'yes');
+  noBtn.classList.toggle('active',  werState.repeat === 'no');
+  noMsg.classList.toggle('show',    werState.repeat === 'no');
+}
+
+window.werSelectDay = werSelectDay;
+window.werToggleRule = werToggleRule;
+window.werSaveCustom = werSaveCustom;
+window.werRepeatToggle = werRepeatToggle;
 
 document.addEventListener('DOMContentLoaded', () => {
 
